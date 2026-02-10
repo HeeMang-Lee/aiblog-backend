@@ -4,7 +4,9 @@ AI Agent 기반 개인 블로그 플랫폼의 백엔드 서버입니다.
 
 ## 기술 스택
 
-- Java / Spring Boot
+- Java 21
+- Spring Boot 4.0.2
+- Gradle 9.3
 
 ## 주요 기능 (예정)
 
