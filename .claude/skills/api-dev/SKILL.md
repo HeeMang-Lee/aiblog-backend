@@ -1,3 +1,8 @@
+---
+name: api-dev
+description: AI 블로그 백엔드 API 개발 워크플로우. API 구현, 엔티티 설계, 예외 처리 등 백엔드 개발 작업 시 사용.
+---
+
 # AI Blog Backend - API Development Skill
 
 > 이 스킬은 AI Agent 기반 개인 블로그 플랫폼 백엔드 개발 시 따라야 할 워크플로우와 규칙을 정의합니다.
