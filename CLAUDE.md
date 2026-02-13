@@ -19,12 +19,15 @@
 
 ## Git 규칙
 - **절대 자동으로 git add, commit, push 하지 말 것**
-- 커밋 메시지는 한 줄로 작성하여 복사 가능한 형태로 제공
+- 커밋 단위: 파일 1개 또는 밀접한 파일 묶음 (여러 파일을 하나의 큰 커밋으로 합치지 말 것)
 - 형식: `[타입] 간결한 설명`
 - 타입: feat, fix, refactor, docs, chore, test
-- 예시: `[feat] 게시글 CRUD API 추가`
-- 작은 기능 단위로 자주 커밋 (하나의 큰 커밋보다 여러 개의 작은 커밋)
-- 기능 구현이 완료될 때마다 커밋 메시지를 제안할 것
+- 기능 구현이 완료될 때마다 아래처럼 **복붙 가능한 git 명령어**를 제안할 것:
+  ```
+  git add src/main/java/com/aiblog/global/exception/BusinessException.java
+  git commit -m "[feat] BusinessException 추가"
+  ```
+- build.gradle, 설정 파일 변경도 별도 커밋으로 분리
 
 ## Gradle / 설정 파일 관리 (중요)
 - build.gradle은 항상 깔끔하게 유지할 것
