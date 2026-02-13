@@ -41,7 +41,7 @@ description: AI 블로그 백엔드 API 개발 워크플로우. API 구현, 엔�
 ### 패키지 구조
 
 ```
-com.project.blog
+com.aiblog
 │
 ├── domain/
 │   │
