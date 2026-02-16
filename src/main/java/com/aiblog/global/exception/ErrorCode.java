@@ -13,6 +13,7 @@ public enum ErrorCode {
 
   // Post
   POST_NOT_FOUND(404, "게시글을 찾을 수 없습니다"),
+  DUPLICATE_POST_SLUG(409, "이미 존재하는 슬러그입니다"),
 
   // Category
   CATEGORY_NOT_FOUND(404, "카테고리를 찾을 수 없습니다"),
