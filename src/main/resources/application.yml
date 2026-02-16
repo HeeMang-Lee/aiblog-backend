@@ -1,6 +1,10 @@
 spring:
   application:
     name: aiblog-backend
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 app:
   admin:
@@ -12,3 +16,14 @@ app:
   storage:
     local:
       upload-dir: ./uploads
+  ai:
+    gpt:
+      api-key: ${GPT_API_KEY:}
+      model: gpt-4o
+      api-url: https://api.openai.com/v1/chat/completions
+    claude:
+      api-key: ${CLAUDE_API_KEY:}
+      model: claude-sonnet-4-20250514
+      api-url: https://api.anthropic.com/v1/messages
+    cache:
+      ttl-hours: 24
