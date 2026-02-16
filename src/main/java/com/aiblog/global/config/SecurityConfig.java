@@ -1,10 +1,10 @@
 package com.aiblog.global.config;
 
+import com.aiblog.global.response.ApiResponse;
 import com.aiblog.global.security.JwtAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +35,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET,
                 "/api/posts", "/api/posts/{id}",
                 "/api/categories", "/api/categories/{id}",
+                "/api/categories/{id}/posts",
                 "/api/posts/{postId}/attachments",
                 "/api/posts/{postId}/recommendations",
                 "/api/visitors/**",
@@ -61,6 +62,6 @@ public class SecurityConfig {
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
     response.setCharacterEncoding("UTF-8");
     objectMapper.writeValue(response.getWriter(),
-        Map.of("success", false, "message", message, "data", (Object) null));
+        ApiResponse.error(message));
   }
 }
