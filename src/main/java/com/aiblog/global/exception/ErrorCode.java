@@ -19,6 +19,9 @@ public enum ErrorCode {
   CATEGORY_NOT_FOUND(404, "카테고리를 찾을 수 없습니다"),
   DUPLICATE_CATEGORY_NAME(409, "이미 존재하는 카테고리명입니다"),
 
+  // Attachment
+  ATTACHMENT_NOT_FOUND(404, "첨부파일을 찾을 수 없습니다"),
+
   // AI
   AI_API_CALL_FAILED(502, "AI API 호출에 실패했습니다"),
   AI_ALL_PROVIDERS_FAILED(502, "모든 AI 제공자 호출에 실패했습니다"),
