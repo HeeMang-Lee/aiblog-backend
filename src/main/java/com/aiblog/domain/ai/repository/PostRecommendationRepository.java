@@ -10,4 +10,6 @@ public interface PostRecommendationRepository
   List<PostRecommendation> findByPostIdOrderByDisplayOrder(Long postId);
 
   void deleteByPostId(Long postId);
+
+  void deleteByRecommendedPostId(Long recommendedPostId);
 }

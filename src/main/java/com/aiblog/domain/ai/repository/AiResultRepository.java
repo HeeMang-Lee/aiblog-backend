@@ -11,4 +11,6 @@ public interface AiResultRepository extends JpaRepository<AiResult, Long> {
 
   List<AiResult> findByPostIdAndAgentTypeOrderByCreatedAtDesc(
       Long postId, AiAgentType agentType);
+
+  void deleteByPostId(Long postId);
 }
