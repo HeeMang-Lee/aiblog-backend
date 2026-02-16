@@ -9,3 +9,6 @@ app:
   jwt:
     secret: Y2hhbmdlLXRoaXMtdG8teW91ci1vd24tc2VjcmV0LWtleS1hdC1sZWFzdC0yNTYtYml0cw==
     expiration-ms: 86400000
+  storage:
+    local:
+      upload-dir: ./uploads
