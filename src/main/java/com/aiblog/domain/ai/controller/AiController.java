@@ -4,6 +4,8 @@ import com.aiblog.domain.ai.dto.AiResultResponse;
 import com.aiblog.domain.ai.dto.PostRecommendationResponse;
 import com.aiblog.domain.ai.entity.AiAgentType;
 import com.aiblog.domain.ai.service.AiAgentService;
+import com.aiblog.global.exception.BusinessException;
+import com.aiblog.global.exception.ErrorCode;
 import com.aiblog.global.response.ApiResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +45,12 @@ public class AiController {
       @RequestParam(required = false) String type) {
     List<AiResultResponse> response;
     if (type != null) {
-      AiAgentType agentType = AiAgentType.valueOf(type.toUpperCase());
+      AiAgentType agentType;
+      try {
+        agentType = AiAgentType.valueOf(type.toUpperCase());
+      } catch (IllegalArgumentException e) {
+        throw new BusinessException(ErrorCode.INVALID_INPUT);
+      }
       response = aiAgentService.getAiResultListByType(postId, agentType);
     } else {
       response = aiAgentService.getAiResultList(postId);
