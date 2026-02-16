@@ -1,6 +1,14 @@
 spring:
   application:
     name: aiblog-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/aiblog?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
   data:
     redis:
       host: localhost
