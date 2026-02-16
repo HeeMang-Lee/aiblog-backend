@@ -17,6 +17,7 @@ import com.aiblog.global.exception.ErrorCode;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import jakarta.annotation.PostConstruct;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,14 @@ public class AiAgentService {
   private final PostRecommendationRepository postRecommendationRepository;
   private final PostRepository postRepository;
   private final AiCacheService aiCacheService;
+
+  private Map<AiAgentType, AiAgent> agentMap;
+
+  @PostConstruct
+  void init() {
+    agentMap = agents.stream()
+        .collect(Collectors.toMap(AiAgent::getType, Function.identity()));
+  }
 
   @Transactional
   public AiResultResponse requestFeedback(Long postId) {
@@ -109,8 +118,6 @@ public class AiAgentService {
   }
 
   private AiAgent findAgent(AiAgentType type) {
-    Map<AiAgentType, AiAgent> agentMap = agents.stream()
-        .collect(Collectors.toMap(AiAgent::getType, Function.identity()));
     AiAgent agent = agentMap.get(type);
     if (agent == null) {
       throw new IllegalStateException(
@@ -126,7 +133,8 @@ public class AiAgentService {
         .stream()
         .findFirst()
         .map(AiResultResponse::from)
-        .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
+        .orElseThrow(
+            () -> new BusinessException(ErrorCode.AI_RESULT_NOT_FOUND));
   }
 
   private void validatePostExists(Long postId) {
