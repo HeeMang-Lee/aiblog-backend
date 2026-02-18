@@ -1,8 +1,5 @@
 package com.aiblog.domain.post.service;
 
-import com.aiblog.domain.ai.repository.AiResultRepository;
-import com.aiblog.domain.ai.repository.PostRecommendationRepository;
-import com.aiblog.domain.attachment.repository.AttachmentRepository;
 import com.aiblog.domain.category.entity.Category;
 import com.aiblog.domain.category.repository.CategoryRepository;
 import com.aiblog.domain.post.dto.PostCreateRequest;
@@ -25,9 +22,6 @@ public class PostService {
 
   private final PostRepository postRepository;
   private final CategoryRepository categoryRepository;
-  private final AttachmentRepository attachmentRepository;
-  private final AiResultRepository aiResultRepository;
-  private final PostRecommendationRepository postRecommendationRepository;
 
   @Transactional
   public PostResponse createPost(PostCreateRequest request) {
@@ -103,10 +97,9 @@ public class PostService {
   public void deletePost(Long id) {
     Post post = postRepository.findById(id)
         .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
-    postRecommendationRepository.deleteByPostId(id);
-    postRecommendationRepository.deleteByRecommendedPostId(id);
-    aiResultRepository.deleteByPostId(id);
-    attachmentRepository.deleteByPostId(id);
+    postRepository.deleteRecommendationsByPostId(id);
+    postRepository.deleteAiResultsByPostId(id);
+    postRepository.deleteAttachmentsByPostId(id);
     postRepository.delete(post);
   }
 
