@@ -24,6 +24,9 @@ app:
   storage:
     local:
       upload-dir: ./uploads
+  visitor:
+    ip-ttl-hours: 24
+    sync-interval-ms: 300000
   ai:
     gpt:
       api-key: ${GPT_API_KEY:}

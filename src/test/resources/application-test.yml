@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+app:
+  admin:
+    username: admin
+    password: test-password
+  jwt:
+    secret: dGVzdC1zZWNyZXQta2V5LXRoYXQtaXMtYXQtbGVhc3QtMjU2LWJpdHMtbG9uZw==
+    expiration-ms: 86400000
+  storage:
+    local:
+      upload-dir: ./test-uploads
+  visitor:
+    ip-ttl-hours: 24
+    sync-interval-ms: 300000
+  ai:
+    gpt:
+      api-key: test-gpt-key
+      model: gpt-4o
+      api-url: http://localhost:9999/fake-gpt
+    claude:
+      api-key: test-claude-key
+      model: claude-sonnet-4-20250514
+      api-url: http://localhost:9999/fake-claude
+    cache:
+      ttl-hours: 24
