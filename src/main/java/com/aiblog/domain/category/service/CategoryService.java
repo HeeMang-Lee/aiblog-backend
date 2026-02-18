@@ -4,7 +4,6 @@ import com.aiblog.domain.category.dto.CategoryCreateRequest;
 import com.aiblog.domain.category.dto.CategoryResponse;
 import com.aiblog.domain.category.entity.Category;
 import com.aiblog.domain.category.repository.CategoryRepository;
-import com.aiblog.domain.post.repository.PostRepository;
 import com.aiblog.global.exception.BusinessException;
 import com.aiblog.global.exception.ErrorCode;
 import java.util.List;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryService {
 
   private final CategoryRepository categoryRepository;
-  private final PostRepository postRepository;
 
   @Transactional
   public CategoryResponse createCategory(CategoryCreateRequest request) {
@@ -72,7 +70,7 @@ public class CategoryService {
   public void deleteCategory(Long id) {
     Category category = categoryRepository.findById(id)
         .orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
-    if (postRepository.existsByCategoryId(id)) {
+    if (categoryRepository.existsPostByCategoryId(id)) {
       throw new BusinessException(ErrorCode.CATEGORY_HAS_POSTS);
     }
     categoryRepository.delete(category);
