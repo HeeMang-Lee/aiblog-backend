@@ -4,7 +4,9 @@ import com.aiblog.domain.post.dto.PostCreateRequest;
 import com.aiblog.domain.post.dto.PostResponse;
 import com.aiblog.domain.post.dto.PostUpdateRequest;
 import com.aiblog.domain.post.service.PostService;
+import com.aiblog.domain.visitor.service.VisitorService;
 import com.aiblog.global.response.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 
   private final PostService postService;
+  private final VisitorService visitorService;
 
   @PostMapping
   public ResponseEntity<ApiResponse<PostResponse>> createPost(
@@ -46,9 +49,19 @@ public class PostController {
 
   @GetMapping("/{id}")
   public ResponseEntity<ApiResponse<PostResponse>> getPostById(
-      @PathVariable Long id) {
+      @PathVariable Long id, HttpServletRequest request) {
     PostResponse response = postService.getPostById(id);
+    String clientIp = extractClientIp(request);
+    visitorService.recordVisit(id, clientIp);
     return ResponseEntity.ok(ApiResponse.ok(response));
+  }
+
+  private String extractClientIp(HttpServletRequest request) {
+    String xForwardedFor = request.getHeader("X-Forwarded-For");
+    if (xForwardedFor != null && !xForwardedFor.isBlank()) {
+      return xForwardedFor.split(",")[0].trim();
+    }
+    return request.getRemoteAddr();
   }
 
   @PutMapping("/{id}")
