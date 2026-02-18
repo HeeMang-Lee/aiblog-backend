@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
@@ -51,8 +53,11 @@ public class PostController {
   public ResponseEntity<ApiResponse<PostResponse>> getPostById(
       @PathVariable Long id, HttpServletRequest request) {
     PostResponse response = postService.getPostById(id);
-    String clientIp = extractClientIp(request);
-    visitorService.recordVisit(id, clientIp);
+    try {
+      visitorService.recordVisit(id, extractClientIp(request));
+    } catch (Exception e) {
+      log.warn("방문자 기록 실패: postId={}", id, e);
+    }
     return ResponseEntity.ok(ApiResponse.ok(response));
   }
 
