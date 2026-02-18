@@ -12,6 +12,8 @@ spring:
       - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
 
 app:
+  site:
+    base-url: http://localhost:8080
   admin:
     username: admin
     password: test-password

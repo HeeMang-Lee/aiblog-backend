@@ -15,6 +15,8 @@ spring:
       port: 6379
 
 app:
+  site:
+    base-url: ${SITE_BASE_URL:http://localhost:8080}
   admin:
     username: admin
     password: changeme
