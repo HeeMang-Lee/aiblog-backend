@@ -37,4 +37,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   @Modifying
   @Query("DELETE FROM Attachment a WHERE a.post.id = :postId")
   void deleteAttachmentsByPostId(@Param("postId") Long postId);
+
+  @Modifying
+  @Query("UPDATE Post p SET p.viewCount = :viewCount WHERE p.id = :id")
+  void updateViewCount(@Param("id") Long id,
+      @Param("viewCount") long viewCount);
 }
