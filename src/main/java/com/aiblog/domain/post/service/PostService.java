@@ -8,6 +8,7 @@ import com.aiblog.domain.post.dto.PostUpdateRequest;
 import com.aiblog.domain.post.entity.Post;
 import com.aiblog.domain.post.entity.PostStatus;
 import com.aiblog.domain.post.repository.PostRepository;
+import com.aiblog.domain.visitor.service.VisitorService;
 import com.aiblog.global.exception.BusinessException;
 import com.aiblog.global.exception.ErrorCode;
 import java.util.List;
@@ -22,6 +23,7 @@ public class PostService {
 
   private final PostRepository postRepository;
   private final CategoryRepository categoryRepository;
+  private final VisitorService visitorService;
 
   @Transactional
   public PostResponse createPost(PostCreateRequest request) {
@@ -101,6 +103,7 @@ public class PostService {
     postRepository.deleteAiResultsByPostId(id);
     postRepository.deleteAttachmentsByPostId(id);
     postRepository.delete(post);
+    visitorService.removeTrackedPost(id);
   }
 
   @Transactional
