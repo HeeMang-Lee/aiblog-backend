@@ -3,6 +3,7 @@ package com.aiblog.domain.post.repository;
 import com.aiblog.domain.post.entity.Post;
 import com.aiblog.domain.post.entity.PostStatus;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
   List<Post> findByCategoryIdAndStatusWithCategory(
       @Param("categoryId") Long categoryId,
       @Param("status") PostStatus status);
+
+  @Query("SELECT p FROM Post p JOIN FETCH p.category WHERE p.id = :id")
+  Optional<Post> findByIdWithCategory(@Param("id") Long id);
 
   boolean existsBySlug(String slug);
 
