@@ -65,7 +65,7 @@ public class PostService {
   }
 
   public PostResponse getPostById(Long id) {
-    Post post = postRepository.findById(id)
+    Post post = postRepository.findByIdWithCategory(id)
         .orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
     return PostResponse.from(post);
   }
