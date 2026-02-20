@@ -31,6 +31,7 @@ public class LocalFileStorageService implements FileStorageService {
     String storedFilename = UUID.randomUUID() + extension;
 
     Path targetDir = uploadDir.resolve(directory).normalize();
+    validatePathWithinUploadDir(targetDir);
     createDirectoryIfNotExists(targetDir);
 
     Path targetPath = targetDir.resolve(storedFilename);
@@ -49,9 +50,16 @@ public class LocalFileStorageService implements FileStorageService {
     Path path = uploadDir.getParent()
         .resolve(filePath.startsWith("/") ? filePath.substring(1) : filePath)
         .normalize();
+    validatePathWithinUploadDir(path);
     try {
       Files.deleteIfExists(path);
     } catch (IOException e) {
+      throw new BusinessException(ErrorCode.FILE_NOT_FOUND);
+    }
+  }
+
+  private void validatePathWithinUploadDir(Path path) {
+    if (!path.startsWith(uploadDir)) {
       throw new BusinessException(ErrorCode.FILE_NOT_FOUND);
     }
   }
