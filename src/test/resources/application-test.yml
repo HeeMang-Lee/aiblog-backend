@@ -12,6 +12,8 @@ spring:
       - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
 
 app:
+  cors:
+    allowed-origins: http://localhost:3000
   site:
     base-url: http://localhost:8080
   admin:
