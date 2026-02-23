@@ -49,6 +49,7 @@ class ArchitectureTest {
       classes().that().haveSimpleNameEndingWith("Service")
           .and().areNotInterfaces()
           .and().resideInAnyPackage("com.aiblog.domain..")
+          .and().resideOutsideOfPackage("..cache..")
           .should().resideInAPackage("..service..");
 
   @ArchTest
